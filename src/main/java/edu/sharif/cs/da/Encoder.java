@@ -2,7 +2,8 @@ package edu.sharif.cs.da;
 
 import edu.sharif.cs.da.internal.SlidingWindowEncoder;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 
 /**
  * Basic interface that encodes a message given in a java.io.BufferedReader and
@@ -37,10 +38,9 @@ public interface Encoder {
 
     /**
      * @param message {@link BufferedReader} input message in a buffered character stream.
-     *
-     * @return {@link BufferedWriter} the compressed message in a buffered character stream.
+     * @param output  {@link BufferedWriter} the compressed message in a buffered character stream.
      */
-    BufferedWriter encode(BufferedReader message);
+    void encode(BufferedReader message, BufferedWriter output);
 
     /**
      * @param message {@link String} input message in a simple string.
