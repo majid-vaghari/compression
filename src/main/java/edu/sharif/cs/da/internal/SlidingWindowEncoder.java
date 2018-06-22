@@ -2,10 +2,7 @@ package edu.sharif.cs.da.internal;
 
 import edu.sharif.cs.da.Encoder;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.Reader;
-import java.io.Writer;
+import java.io.*;
 
 /**
  * Default implementation of sliding window text compression.
@@ -34,6 +31,7 @@ public class SlidingWindowEncoder implements Encoder {
 
     /**
      * @param message {@link BufferedReader} input message in a buffered character stream.
+     *
      * @return {@link BufferedWriter} the compressed message in a buffered character stream.
      */
     @Override
@@ -45,6 +43,7 @@ public class SlidingWindowEncoder implements Encoder {
      * Unbuffered version of {@link Encoder#encode(BufferedReader)}.
      *
      * @param message {@link Reader} input message in an unbuffered character stream.
+     *
      * @return {@link Writer} the compressed message in an unbuffered character stream.
      */
     @Override
@@ -54,6 +53,7 @@ public class SlidingWindowEncoder implements Encoder {
 
     /**
      * @param message {@link String} input message in a simple string.
+     *
      * @return {@link String} the compressed message in a simple string
      */
     @Override

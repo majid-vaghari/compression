@@ -2,10 +2,7 @@ package edu.sharif.cs.da;
 
 import edu.sharif.cs.da.internal.SlidingWindowEncoder;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.Reader;
-import java.io.Writer;
+import java.io.*;
 
 /**
  * Basic interface that encodes a message given in a java.io.BufferedReader and
@@ -26,7 +23,21 @@ import java.io.Writer;
  */
 public interface Encoder {
     /**
+     * @param searchBufferLength    int length of the "window". maximum length which will be
+     *                              searched by the compressor for recurrences of characters.
+     * @param lookAheadBufferLength int maximum length of the characters that will be checked
+     *                              for recurrence.
+     *
+     * @return {@link Encoder} a new instance of sliding window text compressor
+     * which is a basic implementation of LZ77 algorithm.
+     */
+    static Encoder create(int searchBufferLength, int lookAheadBufferLength) {
+        return new SlidingWindowEncoder(searchBufferLength, lookAheadBufferLength);
+    }
+
+    /**
      * @param message {@link BufferedReader} input message in a buffered character stream.
+     *
      * @return {@link BufferedWriter} the compressed message in a buffered character stream.
      */
     BufferedWriter encode(BufferedReader message);
@@ -35,25 +46,15 @@ public interface Encoder {
      * Unbuffered version of {@link Encoder#encode(BufferedReader)}.
      *
      * @param message {@link Reader} input message in an unbuffered character stream.
+     *
      * @return {@link Writer} the compressed message in an unbuffered character stream.
      */
     Writer encode(Reader message);
 
     /**
      * @param message {@link String} input message in a simple string.
+     *
      * @return {@link String} the compressed message in a simple string
      */
     String encode(String message);
-
-    /**
-     * @param searchBufferLength    int length of the "window". maximum length which will be
-     *                              searched by the compressor for recurrences of characters.
-     * @param lookAheadBufferLength int maximum length of the characters that will be checked
-     *                              for recurrence.
-     * @return {@link Encoder} a new instance of sliding window text compressor
-     * which is a basic implementation of LZ77 algorithm.
-     */
-    static Encoder create(int searchBufferLength, int lookAheadBufferLength) {
-        return new SlidingWindowEncoder(searchBufferLength, lookAheadBufferLength);
-    }
 }
