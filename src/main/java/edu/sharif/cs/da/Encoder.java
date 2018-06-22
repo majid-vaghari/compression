@@ -37,12 +37,6 @@ public interface Encoder {
     }
 
     /**
-     * @param message {@link BufferedReader} input message in a buffered character stream.
-     * @param output  {@link BufferedWriter} the compressed message in a buffered character stream.
-     */
-    void encode(BufferedReader message, BufferedWriter output);
-
-    /**
      * @param message {@link String} input message in a simple string.
      *
      * @return {@link String} the compressed message in a simple string

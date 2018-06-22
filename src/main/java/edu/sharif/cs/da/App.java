@@ -27,7 +27,7 @@ public class App {
      * Since the default look ahead length is not specified in the project specifications, a default value is assumed
      * that is large enough for reasonable input sizes.
      */
-    private static final int DEFAULT_LOOK_AHEAD_BUFFER_LENGTH = 1000;
+    public static final int DEFAULT_LOOK_AHEAD_BUFFER_LENGTH = 1000;
 
     /**
      * Main method. Usage of this application is explained in the project specification.
