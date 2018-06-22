@@ -19,6 +19,11 @@ test {
     useJUnitPlatform()
 }
 
+javadoc {
+    options.addBooleanOption('html5', true)
+    options.memberLevel = JavadocMemberLevel.PRIVATE
+}
+
 repositories {
     jcenter()
 }
