@@ -43,15 +43,6 @@ public interface Encoder {
     BufferedWriter encode(BufferedReader message);
 
     /**
-     * Unbuffered version of {@link Encoder#encode(BufferedReader)}.
-     *
-     * @param message {@link Reader} input message in an unbuffered character stream.
-     *
-     * @return {@link Writer} the compressed message in an unbuffered character stream.
-     */
-    Writer encode(Reader message);
-
-    /**
      * @param message {@link String} input message in a simple string.
      *
      * @return {@link String} the compressed message in a simple string
