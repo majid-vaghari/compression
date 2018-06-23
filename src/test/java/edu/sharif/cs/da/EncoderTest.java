@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Test class for {@link Encoder} interface.
+ *
+ * @author Majid Vaghari
  */
 class EncoderTest {
 
@@ -27,6 +29,15 @@ class EncoderTest {
         assertEquals("[0, 0]a[0, 0]b[0, 2][0, 0]c[0, 3][0, 0]d", encoder.encode(message));
     }
 
+    /**
+     * This test seems wrong!
+     * <p>
+     * It appears that the correct output for this message should be:
+     *
+     * <pre>
+     *     [0, 0]a[0, 0]b[0, 0]c[0, 0]d[0, 0]e[0, 1][2, 3][4, 1]
+     * </pre>
+     */
     @Test
     void projectSpecificationTest2() {
         var message = "abcdeacdee";
