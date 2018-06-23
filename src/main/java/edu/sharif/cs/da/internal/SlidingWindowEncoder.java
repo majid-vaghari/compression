@@ -19,13 +19,6 @@ public class SlidingWindowEncoder implements Encoder {
      */
     private int           searchBufferLength;
     /**
-     * The length of the look ahead buffer.
-     * <p>
-     * The compressor will only look for recurrences that are at most as
-     * long as the look ahead buffer.
-     */
-    private int           lookAheadBufferLength;
-    /**
      * Current message being compressed.
      */
     private String        message;
@@ -34,9 +27,8 @@ public class SlidingWindowEncoder implements Encoder {
      */
     private List<Integer> recurrences;
 
-    public SlidingWindowEncoder(int searchBufferLength, int lookAheadBufferLength) {
+    public SlidingWindowEncoder(int searchBufferLength) {
         this.searchBufferLength = searchBufferLength;
-        this.lookAheadBufferLength = lookAheadBufferLength;
         recurrences = new ArrayList<>(searchBufferLength);
     }
 

@@ -22,14 +22,6 @@ import java.util.Scanner;
  */
 public class App {
     /**
-     * Default look ahead length.
-     * <p>
-     * Since the default look ahead length is not specified in the project specifications, a default value is assumed
-     * that is large enough for reasonable input sizes.
-     */
-    public static final int DEFAULT_LOOK_AHEAD_BUFFER_LENGTH = 1000;
-
-    /**
      * Main method. Usage of this application is explained in the project specification.
      *
      * @param args command-line arguments.
@@ -47,7 +39,7 @@ public class App {
 
         var message = input.nextLine().substring(0, messageLength);
 
-        var encoder = Encoder.create(searchBufferLength, DEFAULT_LOOK_AHEAD_BUFFER_LENGTH);
+        var encoder = Encoder.create(searchBufferLength);
 
         System.out.println(encoder.encode(message));
     }
