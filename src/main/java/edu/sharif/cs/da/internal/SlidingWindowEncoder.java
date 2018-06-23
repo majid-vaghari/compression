@@ -51,12 +51,13 @@ public class SlidingWindowEncoder implements Encoder {
 
         var result = new StringBuilder(); // used to append chunks of compressed message in each step.
 
-        for (var cur = 0; cur < message.length(); cur++) {
+        int len; // this is the length of the longest token that is repeated.
+        for (var cur = 0; cur < message.length(); cur += len == 0 ? 1 : len) {
             recurrences.clear();
 
-            var len = -1; // this is the length of the longest token that is repeated.
+            len = -1; // this is the length of the longest token that is repeated.
 
-            var index = 0; // this is the index of the longest token that is repeated.
+            int index; // this is the index of the longest token that is repeated.
             // we look for repeated tokens in the search buffer. the length of the search buffer is given.
 
             //noinspection StatementWithEmptyBody
@@ -94,10 +95,14 @@ public class SlidingWindowEncoder implements Encoder {
         } else {
             var firstRecurrence = recurrences.stream().findFirst().get(); // save first recurrence so that if all
             // recurrences are removed, we use this one.
-            recurrences = recurrences
-                    .stream()
-                    .filter(recurrence -> message.charAt(recurrence + len) == message.charAt(cur + len))
-                    .collect(Collectors.toList()); // only keep the tokens that match the current token
+            try {
+                recurrences = recurrences
+                        .stream()
+                        .filter(recurrence -> message.charAt(recurrence + len) == message.charAt(cur + len))
+                        .collect(Collectors.toList()); // only keep the tokens that match the current token
+            } catch (IndexOutOfBoundsException ignored) { // end of message reached
+                return firstRecurrence;
+            }
             if (recurrences.isEmpty()) return firstRecurrence;
             else return -1;
         }
