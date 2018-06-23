@@ -37,7 +37,7 @@ import java.util.Scanner;
  *     5 10
  *     abcdeacdee
  *
- *     [0, 0]a[0, 0]b[0, 0]c[0, 0]d[0, 0]e[0, 1][0, 2][1, 1][0, 1]
+ *     [0, 0]a[0, 0]b[0, 0]c[0, 0]d[0, 0]e[0, 1][2, 3][4, 1]
  * </pre>
  *
  * @author Majid Vaghari
