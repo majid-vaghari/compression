@@ -32,16 +32,22 @@ class EncoderTest {
     /**
      * This test seems wrong!
      * <p>
-     * It appears that the correct output for this message should be:
+     * It appears that the correct output for this message should be this:
      *
      * <pre>
      *     [0, 0]a[0, 0]b[0, 0]c[0, 0]d[0, 0]e[0, 1][2, 3][4, 1]
+     * </pre>
+     * <p>
+     * But this is the output expected in the project specification:
+     *
+     * <pre>
+     *     [0, 0]a[0, 0]b[0, 0]c[0, 0]d[0, 0]e[0, 1][0, 2][1, 1][0, 1]
      * </pre>
      */
     @Test
     void projectSpecificationTest2() {
         var message = "abcdeacdee";
         var encoder = Encoder.create(5);
-        assertEquals("[0, 0]a[0, 0]b[0, 0]c[0, 0]d[0, 0]e[0, 1][0, 2][1, 1][0, 1]", encoder.encode(message));
+        assertEquals("[0, 0]a[0, 0]b[0, 0]c[0, 0]d[0, 0]e[0, 1][2, 3][4, 1]", encoder.encode(message));
     }
 }
