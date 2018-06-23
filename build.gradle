@@ -30,6 +30,7 @@ plugins {
 
 // Define the main class for the application
 mainClassName = 'edu.sharif.cs.da.App'
+version = '1.0.0'
 
 dependencies {
     // Use JUnit test framework
@@ -48,6 +49,13 @@ test {
 javadoc {
     options.addBooleanOption('html5', true)
     options.memberLevel = JavadocMemberLevel.PRIVATE
+}
+
+jar {
+    manifest {
+        attributes("Implementation-Title": "LZ77 Compression",
+                "Implementation-Version": version)
+    }
 }
 
 repositories {
