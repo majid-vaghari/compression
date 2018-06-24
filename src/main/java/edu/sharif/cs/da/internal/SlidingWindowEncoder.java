@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2018 Majid Vaghari
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 package edu.sharif.cs.da.internal;
 
 import edu.sharif.cs.da.Encoder;
@@ -19,13 +41,6 @@ public class SlidingWindowEncoder implements Encoder {
      */
     private int           searchBufferLength;
     /**
-     * The length of the look ahead buffer.
-     * <p>
-     * The compressor will only look for recurrences that are at most as
-     * long as the look ahead buffer.
-     */
-    private int           lookAheadBufferLength;
-    /**
      * Current message being compressed.
      */
     private String        message;
@@ -34,9 +49,8 @@ public class SlidingWindowEncoder implements Encoder {
      */
     private List<Integer> recurrences;
 
-    public SlidingWindowEncoder(int searchBufferLength, int lookAheadBufferLength) {
+    public SlidingWindowEncoder(int searchBufferLength) {
         this.searchBufferLength = searchBufferLength;
-        this.lookAheadBufferLength = lookAheadBufferLength;
         recurrences = new ArrayList<>(searchBufferLength);
     }
 
@@ -51,12 +65,13 @@ public class SlidingWindowEncoder implements Encoder {
 
         var result = new StringBuilder(); // used to append chunks of compressed message in each step.
 
-        for (var cur = 0; cur < message.length(); cur++) {
+        int len; // this is the length of the longest token that is repeated.
+        for (var cur = 0; cur < message.length(); cur += len == 0 ? 1 : len) {
             recurrences.clear();
 
-            var len = -1; // this is the length of the longest token that is repeated.
+            len = -1; // this is the length of the longest token that is repeated.
 
-            var index = 0; // this is the index of the longest token that is repeated.
+            int index; // this is the index of the longest token that is repeated.
             // we look for repeated tokens in the search buffer. the length of the search buffer is given.
 
             //noinspection StatementWithEmptyBody
@@ -94,10 +109,14 @@ public class SlidingWindowEncoder implements Encoder {
         } else {
             var firstRecurrence = recurrences.stream().findFirst().get(); // save first recurrence so that if all
             // recurrences are removed, we use this one.
-            recurrences = recurrences
-                    .stream()
-                    .filter(recurrence -> message.charAt(recurrence + len) == message.charAt(cur + len))
-                    .collect(Collectors.toList()); // only keep the tokens that match the current token
+            try {
+                recurrences = recurrences
+                        .stream()
+                        .filter(recurrence -> message.charAt(recurrence + len) == message.charAt(cur + len))
+                        .collect(Collectors.toList()); // only keep the tokens that match the current token
+            } catch (IndexOutOfBoundsException ignored) { // end of message reached
+                return firstRecurrence;
+            }
             if (recurrences.isEmpty()) return firstRecurrence;
             else return -1;
         }

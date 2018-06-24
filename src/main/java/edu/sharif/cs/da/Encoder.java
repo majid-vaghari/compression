@@ -1,14 +1,33 @@
+/*
+ * Copyright (c) 2018 Majid Vaghari
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 package edu.sharif.cs.da;
 
 import edu.sharif.cs.da.internal.SlidingWindowEncoder;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-
 /**
  * Basic interface that encodes a message given in a java.io.BufferedReader and
  * writes the result in a java.io.BufferedWriter.
- * Simply use the {@link Encoder#create(int, int)} method to make a new instance of the
+ * Simply use the {@link Encoder#create(int)} method to make a new instance of the
  * appropriate compressing class and provide the message in the form you like.
  * <p>
  * Sample usage:
@@ -26,14 +45,11 @@ public interface Encoder {
     /**
      * @param searchBufferLength    int length of the "window". maximum length which will be
      *                              searched by the compressor for recurrences of characters.
-     * @param lookAheadBufferLength int maximum length of the characters that will be checked
-     *                              for recurrence.
-     *
      * @return {@link Encoder} a new instance of sliding window text compressor
      * which is a basic implementation of LZ77 algorithm.
      */
-    static Encoder create(int searchBufferLength, int lookAheadBufferLength) {
-        return new SlidingWindowEncoder(searchBufferLength, lookAheadBufferLength);
+    static Encoder create(int searchBufferLength) {
+        return new SlidingWindowEncoder(searchBufferLength);
     }
 
     /**
