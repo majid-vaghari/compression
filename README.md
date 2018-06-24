@@ -15,7 +15,7 @@ System.out.println(encoder.encode(message));
 // prints [0, 0]a[0, 0]b[0, 2][0, 0]c[0, 3][0, 0]d
 ```
 
-To use as a CLI tool, enter window length and message length separated by a space in the first line and enter the message in the second line.
+To use as a CLI executable, enter window length and message length separated by a space in the first line and enter the message in the second line.
 
 ```
 $ java -jar compression-1.0.0.jar
@@ -24,6 +24,22 @@ abcdeacdee
 
 [0, 0]a[0, 0]b[0, 0]c[0, 0]d[0, 0]e[0, 1][2, 3][4, 1]
 ```
+
+# Build
+
+This project is bulit using [Gradle](https://gradle.org). Run `./gradlew tasks` to see available options.
+
+You can run unit tests --written with JUnit, available in the test sources, if you run `./gradlew test`.
+
+To check everything in the project and also run tests, run: `./gradlew check`.
+
+To build the Jar file run `./gradlew jar`.
+
+To generate Javadocs run `./gradlew javadoc`.
+
+To build the whole project and also run tests and build Jar file, run `./gradlew build`.
+
+When you run a task with Gradle, the output is stored in the `./build/` folder.
 
 # External Links
 
