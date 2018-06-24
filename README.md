@@ -18,7 +18,7 @@ System.out.println(encoder.encode(message));
 To use as a CLI executable, enter window length and message length separated by a space in the first line and enter the message in the second line.
 
 ```
-$ java -jar compression-1.0.0.jar
+$ java -jar compression-1.0.1.jar
 5 10
 abcdeacdee
 
