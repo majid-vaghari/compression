@@ -29,7 +29,7 @@ abcdeacdee
 
 This project is bulit using [Gradle](https://gradle.org). Run `./gradlew tasks` to see available options.
 
-You can run unit tests --written with JUnit, available in the test sources, if you run `./gradlew test`.
+You can run unit tests —written with JUnit, available in the test sources, if you run `./gradlew test`.
 
 To check everything in the project and also run tests, run: `./gradlew check`.
 
