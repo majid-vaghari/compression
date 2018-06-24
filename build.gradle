@@ -30,7 +30,7 @@ plugins {
 
 // Define the main class for the application
 mainClassName = 'edu.sharif.cs.da.App'
-version = '1.0.0'
+version = '1.0.1'
 
 dependencies {
     // Use JUnit test framework
